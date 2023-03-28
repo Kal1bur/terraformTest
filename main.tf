@@ -29,7 +29,7 @@ resource "aws_subnet" "public" {
   cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)
   map_public_ip_on_launch = true
   tags = {
-    "Name" = "${var.default_tags.env}-Public-${data.aws_availability_zones.availability_zone.names[count.index]}"
+    "Name" = "${var.default_tags.env}-public-${data.aws_availability_zones.availability_zone.names[count.index]}"
   }
   availability_zone = data.aws_availability_zones.availability_zone.names[count.index]
 }
@@ -40,7 +40,7 @@ resource "aws_subnet" "private" {
   vpc_id     = aws_vpc.main.id
   cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + var.public_subnet_count)
   tags = {
-    "Name" = "${var.default_tags.env}-Private-${data.aws_availability_zones.availability_zone.names[count.index]}"
+    "Name" = "${var.default_tags.env}-private-${data.aws_availability_zones.availability_zone.names[count.index]}"
   }
   availability_zone = data.aws_availability_zones.availability_zone.names[count.index]
 }

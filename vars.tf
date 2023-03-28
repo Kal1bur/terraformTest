@@ -3,7 +3,7 @@ variable "default_tags" {
   default = {
     "env" = "RobT"
   }
-  description = "Robs Variables"
+  description = "Robs Variables Description"
 }
 
 variable "public_subnet_count" {
