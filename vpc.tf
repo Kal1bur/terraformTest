@@ -5,6 +5,11 @@ terraform {
       version = "4.60.0"
     }
   }
+  backend "s3" {
+    bucket = "robt-bucket"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {
@@ -19,25 +24,6 @@ resource "aws_vpc" "main" {
   enable_dns_support               = true
   tags = {
     "Name" = "${var.default_tags.env}-VPC"
-  }
-}
-
-#Define Default Security Group
-resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.main.id
-
-  ingress {
-    protocol    = -1
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
